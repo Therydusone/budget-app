@@ -31,7 +31,8 @@ var budgetController = (function() {
             exp: 0,
             inc: 0
         },
-        budget: 0
+        budget: 0,
+        percentage: -1
     };
 
     return {
@@ -66,6 +67,16 @@ var budgetController = (function() {
             //calculate the budget income - expenses
             data.budget = data.totals.inc - data.totals.exp
             // calculate % of income
+            data.percentage = Math.round((data.totals.exp / data.totals.inc) *100 );
+        },
+
+        getBudget: function() {
+            return {
+                budget: data.budget,
+                totalInc: data.totals.inc,
+                totalExp: data.totals.exp,
+                percentage: data.percentage
+            }
         },
 
         testing: function() {
@@ -151,9 +162,10 @@ var controller = (function(budgetCtrl, UiCtrl) {
     var updateBudget = function() {
 
         // 1. Calculate budget
-
+        budgetCtrl.calculateBudget();
+    
         // 2. Return the budget
-
+        var bidget = budgetCtrl.getBudget();
         // 3. Display the budget
     };
 
